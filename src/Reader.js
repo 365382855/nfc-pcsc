@@ -149,7 +149,7 @@ class Reader extends EventEmitter {
 					this.logger.debug('card removed');
 
 					if (this.card) {
-						this.emit('card.off', Object.assign({},this.card }));
+						this.emit('card.off', Object.assign({}, this.card));
 					}
 
 					try {
@@ -185,7 +185,7 @@ class Reader extends EventEmitter {
 						await this.connect();
 
 						if (!this.autoProcessing) {
-							this.emit('card', Object.assign({},this.card }));
+							this.emit('card', Object.assign({}, this.card));
 							return;
 						}
 
@@ -455,16 +455,16 @@ class Reader extends EventEmitter {
 				keyNumber, // Byte 5: Key Number
 			])
 		) : (
-			// CMD: Authentication (obsolete)
-			Buffer.from([
-				0xff, // Class
-				0x88, // INS
-				0x00, // P1
-				blockNumber, // P2: Block Number
-				keyType, // P3: Key Type
-				keyNumber, // Data In: Key Number
-			])
-		);
+				// CMD: Authentication (obsolete)
+				Buffer.from([
+					0xff, // Class
+					0x88, // INS
+					0x00, // P1
+					blockNumber, // P2: Block Number
+					keyType, // P3: Key Type
+					keyNumber, // Data In: Key Number
+				])
+			);
 
 		let response = null;
 
@@ -712,7 +712,7 @@ class Reader extends EventEmitter {
 
 			this.card.uid = uid;
 
-			this.emit('card', Object.assign({},this.card }));
+			this.emit('card', Object.assign({}, this.card));
 
 
 		} catch (err) {
@@ -795,7 +795,7 @@ class Reader extends EventEmitter {
 
 			this.logger.debug('Data cropped', data);
 
-			this.emit('card', Object.assign({data:data},this.card }));
+			this.emit('card', Object.assign({ data: data }, this.card));
 
 		} catch (err) {
 
