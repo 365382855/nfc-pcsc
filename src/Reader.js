@@ -149,7 +149,7 @@ class Reader extends EventEmitter {
 					this.logger.debug('card removed');
 
 					if (this.card) {
-						this.emit('card.off', { ...this.card });
+						this.emit('card.off', Object.assign({},this.card }));
 					}
 
 					try {
@@ -185,7 +185,7 @@ class Reader extends EventEmitter {
 						await this.connect();
 
 						if (!this.autoProcessing) {
-							this.emit('card', { ...this.card });
+							this.emit('card', Object.assign({},this.card }));
 							return;
 						}
 
@@ -712,7 +712,7 @@ class Reader extends EventEmitter {
 
 			this.card.uid = uid;
 
-			this.emit('card', { ...this.card });
+			this.emit('card', Object.assign({},this.card }));
 
 
 		} catch (err) {
@@ -795,10 +795,7 @@ class Reader extends EventEmitter {
 
 			this.logger.debug('Data cropped', data);
 
-			this.emit('card', {
-				...this.card,
-				data: data,
-			});
+			this.emit('card', Object.assign({data:data},this.card }));
 
 		} catch (err) {
 
